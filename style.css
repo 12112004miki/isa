@@ -10,15 +10,31 @@
   --dark-color: #010113;
 }
 
+html {
+  width: 100%;
+  overflow: hidden;
+}
+
 body {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  width: 100%;
   min-height: 100vh;
+  min-height: 100svh;
   background-color: var(--dark-color);
   overflow: hidden;
   perspective: 1000px;
 }
+
+body > audio {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  left: max(12px, env(safe-area-inset-left));
+  z-index: 301;
+  width: min(280px, calc(100vw - 24px));
+}
+
 .night {
   position: fixed;
   left: 50%;
@@ -1981,5 +1997,95 @@ body {
   50% {
     fill: rgb(253, 93, 19);
     opacity: 1;
+  }
+}
+
+.flower--1 {
+  --petal-light: #d9a8ff;
+  --petal-dark: #7b2cbf;
+  --flower-glow: rgba(181, 92, 255, 0.7);
+}
+
+.flower--2 {
+  --petal-light: #ff5c70;
+  --petal-dark: #b20d2b;
+  --flower-glow: rgba(255, 55, 82, 0.7);
+}
+
+.flower--3 {
+  --petal-light: #8bd5ff;
+  --petal-dark: #1769aa;
+  --flower-glow: rgba(73, 174, 255, 0.7);
+}
+
+.flower--4 {
+  --petal-light: #d9a8ff;
+  --petal-dark: #7b2cbf;
+  --flower-glow: rgba(181, 92, 255, 0.7);
+}
+
+.flower {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flower .flower__leaf {
+  background-color: var(--petal-light);
+  background-image: linear-gradient(to top, var(--petal-dark), var(--petal-light));
+}
+
+.flower .flower__leafs::after {
+  background-color: var(--flower-glow);
+}
+
+.photo-popover {
+  position: fixed;
+  z-index: 300;
+  top: 50%;
+  left: 50%;
+  width: min(72vw, 420px);
+  padding: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -45%) scale(0.92);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.photo-popover.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.photo-popover img {
+  display: block;
+  width: 100%;
+  max-height: 65vh;
+  border-radius: 14px;
+  object-fit: contain;
+}
+
+@media (max-width: 600px) {
+  .flowers {
+    transform: scale(0.78);
+  }
+
+  .photo-popover {
+    width: min(88vw, 420px);
+    padding: 6px;
+    border-radius: 16px;
+  }
+
+  .photo-popover img {
+    max-height: 72svh;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .flowers {
+    transform: scale(0.62);
   }
 }
